@@ -1,0 +1,49 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: Update Me
+
+Globals:
+  Api:
+    BinaryMediaTypes:
+      - application~1pdf
+
+Resources:
+  # Define an API GateWay
+  ApiGatewayApi:
+    Type: AWS::Serverless::Api
+    Properties:
+      StageName: prod
+    BinaryMediaTypes:
+      - '*~1*'
+    # DefinitionBody:
+    #   x-amazon-apigateway-binary-media-types:
+    #     - '*/*'
+
+  # Define the consumer Lambda function and EventBridge rule
+  SnapshotFunction:
+    Type: AWS::Serverless::Function
+    Description: Invoked by EventBridge scheduled rule
+    Properties:
+      CodeUri: src/
+      Handler: app.handler
+      Runtime: nodejs12.x
+      Timeout: 15
+      MemorySize: 3008
+
+      Layers:
+        - !Sub 'arn:aws:lambda:${AWS::Region}:764866452798:layer:chrome-aws-lambda:22'
+      Environment:
+        Variables:
+          TARGET_URL: 'https://serverlessland.com'
+      Events:
+        ApiEvent:
+          Type: Api
+          Properties:
+            Path: /ratings
+            Method: post
+            RestApiId:
+              Ref: ApiGatewayApi
+# Outputs:
+#   ConsumerFunction:
+#     Description: SnapshotFunction function name
+#     Value: !Ref SnapshotFunction
