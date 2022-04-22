@@ -20,7 +20,7 @@ Resources:
     #     - '*/*'
 
   # Define the consumer Lambda function and EventBridge rule
-  SnapshotFunction:
+  PdfFunction:
     Type: AWS::Serverless::Function
     Description: Invoked by EventBridge scheduled rule
     Properties:
@@ -39,11 +39,11 @@ Resources:
         ApiEvent:
           Type: Api
           Properties:
-            Path: /ratings
+            Path: /pdf
             Method: post
             RestApiId:
               Ref: ApiGatewayApi
-# Outputs:
-#   ConsumerFunction:
-#     Description: SnapshotFunction function name
-#     Value: !Ref SnapshotFunction
+Outputs:
+  ConsumerFunction:
+    Description: PdfFunction function name
+    Value: !Ref PdfFunction
