@@ -15,25 +15,35 @@ PROJECT_ROOT := $(PWD)
 
 
 # --- Makefile starts here
-.DEFAULT_GOAL := all
+.DEFAULT_GOAL := help
+
+# ---- Makefile help utility function
+define PRINT_HELP_PYSCRIPT
+import re, sys
+for line in sys.stdin:
+	match = re.match(r'^([a-zA-Z_-]+):.*?## (.*)$$', line)
+	if match:
+		target, help = match.groups()
+		print("%-20s %s" % (target, help))
+endef
+
+export PRINT_HELP_PYSCRIPT
 
 # ================== Makefile commands ====================
-.PHONY: all build zip invokation-local
+.PHONY: help build sam-build invokation-local api-local
 
-# all: build
+help:
+	@python3 -c "$$PRINT_HELP_PYSCRIPT" < $(MAKEFILE_LIST)
 
-sam-build:
+sam-build: ## Build the SAM template
 	sam build
 
-invokation-local: sam-build
-	sam local invoke "SnapshotFunction" -e events/api-gw-event.json --region us-west-1
+invokation-local: sam-build ## Invoke Lambda locally
+	sam local invoke "PdfFunction" -e events/api-gw-event.json --region us-west-1
 
-api-local: sam-build
+api-local: sam-build ## Start Local API Gateway
 	sam local start-api --region us-west-1
 
 get-version: ## Get version of package
 	@cat VERSION
 
-################################################################
-PROJECT_NAME := "rds_subscriber_sensor_readings"
-PKG := "gitlab.com/vitreo-nbt/backend/-/tree/dev/lambdas/rds_subscriber_sensor_readings"
