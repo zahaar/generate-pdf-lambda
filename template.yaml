@@ -34,7 +34,7 @@ Resources:
         - !Sub 'arn:aws:lambda:${AWS::Region}:764866452798:layer:chrome-aws-lambda:22'
       Environment:
         Variables:
-          TARGET_URL: 'https://serverlessland.com'
+          EXAMPLE_ENV: 'CHANGE_THIS'
       Events:
         ApiEvent:
           Type: Api

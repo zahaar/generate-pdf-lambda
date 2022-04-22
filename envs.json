@@ -1,5 +1,5 @@
 {
   "PdfFunction": {
-    "TARGET_URL": "https://serverlessland.com"
+    "EXAMPLE_ENV": "CHANGE_THIS"
   }
 }
