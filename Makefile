@@ -44,6 +44,9 @@ invokation-local: sam-build ## Invoke Lambda locally
 api-local: sam-build ## Start Local API Gateway
 	sam local start-api --region us-west-1
 
+deploy: sam-build ## Deploy SAM template
+	sam deploy 
+
 get-version: ## Get version of package
 	@cat VERSION
 

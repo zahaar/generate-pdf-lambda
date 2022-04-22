@@ -62,7 +62,7 @@ exports.handler = async (event, context) => {
       'Access-Control-Allow-Origin': '*',
       'Access-Control-Allow-Methods': 'GET, POST',
       'Content-type': 'application/pdf',
-      'Content-Disposition': 'inline; filename="foo.pdf"',
+      'Content-Disposition': 'attachment; filename="foo.pdf"',
     },
     isBase64Encoded: true,
     body: pdf.toString('base64'),
