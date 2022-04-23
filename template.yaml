@@ -12,9 +12,11 @@ Resources:
   ApiGatewayApi:
     Type: AWS::Serverless::Api
     Properties:
-      StageName: prod
+      StageName: Staging
     BinaryMediaTypes:
-      - '*~1*'
+      - application~1pdf
+    # BinaryMediaTypes:
+    #   - '*~1*'
     # DefinitionBody:
     #   x-amazon-apigateway-binary-media-types:
     #     - '*/*'
@@ -44,6 +46,7 @@ Resources:
             RestApiId:
               Ref: ApiGatewayApi
 Outputs:
-  ConsumerFunction:
-    Description: PdfFunction function name
-    Value: !Ref PdfFunction
+  ApiGatewayApi:
+    Description: API Gateway endpoint URL for Staging stage for Hello World function
+    Value:
+      Fn::Sub: https://${ApiGatewayApi}.execute-api.${AWS::Region}.amazonaws.com/Staging/
