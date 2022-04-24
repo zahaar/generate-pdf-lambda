@@ -16,30 +16,21 @@ This repo contains a serverless application that takes a HTML template and retur
 
 # How to Run
 
-1. Clone this repo:
+1. Clone this repo `git clone https://github.com/zahaar/generate-pdf-lambda`
 
-```
-git clone https://github.com/zahaar/generate-pdf-lambda
-```
-
-2. Import [cUrl](./cUrl.txt) to Insomnia ( Postman is not recommended, as it can't visualize Pdf ).
+2. Import [cUrl](./cUrl.txt) to [Insomnia](https://insomnia.rest/) ( Postman is not recommended, as it can't visualize Pdf ).
 3. Run `make api-local` to have local API GW running.
-   ![API](./docs/api_running.png)
-4. Send `cUrl` request.  
-    _result in Insomnia_
-   ![Result](./docs/result.png)
+4. Send `cUrl` request via Insomnia.
 
 > You can also invoke Lambda bypassing API GW, by supplying an example event in [file](/events/api-gw-event.json), and running `make invokation-local`. The response would be a base64 encoded PDF binary.
 
 # How to Deploy
 
-1.
+> A configured AWS CLI V2 is a must -> [AWS Console Account && API Keys](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-files.html)
 
-```
-make deploy
-```
+1. `make deploy`
 
-2. Fetch output URL `Value`, and change the Url in Insomnia from `localhost` to that value.
+2. Fetch AWS SAM deploy output URL `Value`, and change the Url in Insomnia from `localhost` to that value.
    _execution result in Insomnia_
    ![End-Result](./docs/deployed_result.png)
 
