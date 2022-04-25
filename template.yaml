@@ -15,11 +15,6 @@ Resources:
       StageName: Staging
     BinaryMediaTypes:
       - application~1pdf
-    # BinaryMediaTypes:
-    #   - '*~1*'
-    # DefinitionBody:
-    #   x-amazon-apigateway-binary-media-types:
-    #     - '*/*'
 
   # Define the consumer Lambda function and EventBridge rule
   PdfFunction:
